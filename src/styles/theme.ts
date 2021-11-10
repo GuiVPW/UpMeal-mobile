@@ -13,7 +13,8 @@ export const theme = {
 	},
 	title: {
 		main: '#322153',
-		secondary: '#41414D'
+		secondary: '#41414D',
+		light: '#fafafa'
 	},
 	border: {
 		divider: '1px solid #F0F0F5'
