@@ -7,7 +7,7 @@ import { useFonts, Roboto_400Regular, Roboto_500Medium } from '@expo-google-font
 
 import { Ubuntu_700Bold } from '@expo-google-fonts/ubuntu'
 import { StatusBar } from 'expo-status-bar'
-import Routes from './src/navigation/navigator'
+import { Navigation } from './src/routes'
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
@@ -23,7 +23,7 @@ export default function App() {
 	return (
 		<ThemeProvider theme={theme}>
 			<StatusBar animated backgroundColor="transparent" translucent />
-			<Routes />
+			<Navigation />
 		</ThemeProvider>
 	)
 }
