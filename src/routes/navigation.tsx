@@ -2,17 +2,9 @@ import { NavigationContainer } from '@react-navigation/native'
 import { AppStack } from './stack'
 import { useTheme } from 'styled-components'
 import { HOME } from './routes'
-import { Text, View } from 'react-native'
+import HomeScreen from '../screens/Home'
 
-function HomeScreen() {
-	return (
-		<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-			<Text>Home Screen</Text>
-		</View>
-	)
-}
-
-const Navigator = () => {
+export const Navigation = () => {
 	const theme = useTheme()
 
 	return (
@@ -33,4 +25,4 @@ const Navigator = () => {
 	)
 }
 
-export default Navigator
+export default Navigation
