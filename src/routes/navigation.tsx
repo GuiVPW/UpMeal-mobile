@@ -25,8 +25,7 @@ export const Navigation = () => {
 				} else {
 					setIsNew(JSON.parse(item))
 				}
-			} catch (e) {
-				console.log(e)
+			} catch {
 				setIsNew(true)
 			}
 		})()
