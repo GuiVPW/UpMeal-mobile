@@ -1,13 +1,13 @@
 import React from 'react'
-import { ThemeProvider } from 'styled-components/native'
-import { theme } from './src/styles/theme'
-import AppLoading from 'expo-app-loading'
 
 import { useFonts, Roboto_400Regular, Roboto_500Medium } from '@expo-google-fonts/roboto'
-
 import { Ubuntu_700Bold } from '@expo-google-fonts/ubuntu'
+import AppLoading from 'expo-app-loading'
 import { StatusBar } from 'expo-status-bar'
+import { ThemeProvider } from 'styled-components/native'
+
 import { Navigation } from './src/routes'
+import { theme } from './src/styles/theme'
 
 export default function App() {
 	const [fontsLoaded] = useFonts({
