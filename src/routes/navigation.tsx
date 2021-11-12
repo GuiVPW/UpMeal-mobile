@@ -6,9 +6,10 @@ import { NavigationContainer } from '@react-navigation/native'
 import AppLoading from 'expo-app-loading'
 import SecureStore from 'expo-secure-store'
 
+import { DetailsScreen } from '../screens/Details'
 import { HomeScreen } from '../screens/Home'
 import { MapScreen } from '../screens/Map'
-import { HOME, MAP } from './routes'
+import { HOME, MAP, DETAILS } from './routes'
 import { AppStack } from './stack'
 
 export const Navigation = () => {
@@ -48,6 +49,11 @@ export const Navigation = () => {
 			>
 				<AppStack.Screen name={HOME} component={HomeScreen} />
 				<AppStack.Screen name={MAP} component={MapScreen} />
+				<AppStack.Screen
+					name={DETAILS}
+					options={{ headerShown: true }}
+					component={DetailsScreen}
+				/>
 			</AppStack.Navigator>
 		</NavigationContainer>
 	)

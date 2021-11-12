@@ -7,6 +7,7 @@ import { ParamListBase } from '@react-navigation/routers'
 export interface RootStackParamList extends ParamListBase {
 	Home: undefined
 	Map: undefined
+	Details: { id: number }
 }
 
 export type ScreenProps<T extends keyof RootStackParamList> = NativeStackScreenProps<
