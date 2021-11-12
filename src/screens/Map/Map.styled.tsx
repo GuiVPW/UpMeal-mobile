@@ -1,5 +1,5 @@
 import MapView from 'react-native-maps'
-import { Searchbar, Surface } from 'react-native-paper'
+import { Paragraph, Searchbar, Surface } from 'react-native-paper'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styled from 'styled-components/native'
 
@@ -38,12 +38,15 @@ export const CustomSearchbar = styled(Searchbar)`
 `
 
 export const CalloutContainer = styled.View`
-	width: 160px;
-	height: 46px;
 	padding-horizontal: 16px;
-	background-color: ${({ theme }) => theme.background.secondary};
+	height: 46px;
+	background-color: ${({ theme }) => theme.background.light};
 	border-radius: 16px;
 	justify-content: center;
+`
+
+export const CalloutText = styled(Paragraph)`
 	color: #0089a5;
-	font-size: 14px;
+	font-size: 18px;
+	text-align: center;
 `
