@@ -1,5 +1,9 @@
 {
 	"conventionalCommits.scopes": [
-		"eslint"
+		"eslint",
+		"typescript",
+		"styled-components",
+		"build",
+		"screens"
 	]
 }
