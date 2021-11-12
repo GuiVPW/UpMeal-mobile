@@ -1,45 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { useTheme } from 'styled-components'
 
 import { NavigationContainer } from '@react-navigation/native'
-import AppLoading from 'expo-app-loading'
-import SecureStore from 'expo-secure-store'
 
 import { DetailsScreen } from '../screens/Details'
 import { HomeScreen } from '../screens/Home'
+import { InitialScreen } from '../screens/Initial'
 import { MapScreen } from '../screens/Map'
-import { HOME, MAP, DETAILS } from './routes'
+import { HOME, MAP, DETAILS, INITIAL } from './routes'
 import { AppStack } from './stack'
 
 export const Navigation = () => {
 	const theme = useTheme()
-	const [isNew, setIsNew] = useState<boolean>()
-
-	useEffect(() => {
-		;(async () => {
-			try {
-				const item = await SecureStore.getItemAsync('is_new')
-
-				if (!item) {
-					setIsNew(true)
-				} else {
-					setIsNew(JSON.parse(item))
-				}
-			} catch {
-				setIsNew(true)
-			}
-		})()
-	}, [])
-
-	if (typeof isNew === 'undefined') {
-		return <AppLoading />
-	}
 
 	return (
 		<NavigationContainer>
 			<AppStack.Navigator
-				initialRouteName={isNew ? HOME : MAP}
+				initialRouteName={INITIAL}
 				screenOptions={{
 					headerShown: false,
 					contentStyle: {
@@ -47,6 +25,7 @@ export const Navigation = () => {
 					}
 				}}
 			>
+				<AppStack.Screen name={INITIAL} component={InitialScreen} />
 				<AppStack.Screen name={HOME} component={HomeScreen} />
 				<AppStack.Screen name={MAP} component={MapScreen} />
 				<AppStack.Screen

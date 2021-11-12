@@ -5,6 +5,7 @@ import {
 import { ParamListBase } from '@react-navigation/routers'
 
 export interface RootStackParamList extends ParamListBase {
+	Initial: undefined
 	Home: undefined
 	Map: undefined
 	Details: { id: number }
