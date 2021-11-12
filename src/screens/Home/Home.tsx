@@ -27,7 +27,7 @@ export const HomeScreen = () => {
 
 	const onDone = async () => {
 		navigator.navigate(MAP)
-		await SecureStore.setItemAsync('is_new', String(true))
+		await SecureStore.setItemAsync('is_new', String(false))
 	}
 
 	return (
