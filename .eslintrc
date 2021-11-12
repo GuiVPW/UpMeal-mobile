@@ -59,7 +59,8 @@
 			{
 				"extensions": [
 					".ts",
-					".tsx"
+					".tsx",
+					".png"
 				]
 			}
 		],
@@ -220,7 +221,8 @@
 					".js",
 					".jsx",
 					".ts",
-					".tsx"
+					".tsx",
+					".png"
 				]
 			}
 		}
