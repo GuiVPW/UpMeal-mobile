@@ -197,11 +197,7 @@
 				"js": "never",
 				"jsx": "never",
 				"ts": "never",
-				"tsx": "never",
-				"png": "never",
-				"svg": "never",
-				"jpg": "never",
-				"jpeg": "never"
+				"tsx": "never"
 			}
 		]
 	},
