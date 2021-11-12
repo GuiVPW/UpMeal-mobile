@@ -144,7 +144,10 @@ export const MapScreen = () => {
 							icon={marker}
 							calloutAnchor={{ x: 0.5, y: 0 }}
 						>
-							<Callout onPress={() => handleNavigateToDetails(id)}>
+							<Callout
+								style={{ elevation: 0, borderRadius: 16 }}
+								onPress={() => handleNavigateToDetails(id)}
+							>
 								<CalloutContainer>
 									<CalloutText>{name}</CalloutText>
 								</CalloutContainer>
