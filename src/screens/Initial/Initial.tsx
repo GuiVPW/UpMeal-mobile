@@ -37,9 +37,8 @@ export const InitialScreen = () => {
 
 	const handleNavigate = () => {
 		const screenRoute = isNew ? HOME : MAP
-		console.log(screenRoute)
 
-		// navigation.navigate(screenRoute)
+		navigation.navigate(screenRoute)
 	}
 
 	return (
@@ -49,7 +48,7 @@ export const InitialScreen = () => {
 				<Title>UpMeal</Title>
 				<Subtitle>Diminua o desperdício</Subtitle>
 			</TextContainer>
-			<StyledButton rippleColor="rgba(0, 0, 0, .32)" onPress={() => handleNavigate}>
+			<StyledButton rippleColor="rgba(0, 0, 0, .32)" onPress={() => handleNavigate()}>
 				<ButtonText>Começar</ButtonText>
 			</StyledButton>
 		</Container>
