@@ -5,7 +5,8 @@ export const theme = {
 		light: '#fff'
 	},
 	colors: {
-		primary: '#fe7240'
+		primary: '#22bcb5',
+		secondary: '#fe7240'
 	},
 	text: {
 		main: '#6c6c80',
