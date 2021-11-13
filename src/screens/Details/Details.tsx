@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
-import { useTheme } from 'styled-components'
-
 import { FontAwesome } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core'
 import { useRoute } from '@react-navigation/native'
 import { View, ScrollView, Linking, Alert } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import {
-	ActivityIndicator,
-	Title as PaperTitle,
-	Paragraph,
-	Subheading
-} from 'react-native-paper'
+import { ActivityIndicator, Title as PaperTitle, Paragraph } from 'react-native-paper'
 
 import mapMarkerImg from '../../images/marker.png'
 import { MAP } from '../../navigation/routes'
@@ -40,7 +33,6 @@ export const DetailsScreen = () => {
 	const navigation = useNavigation()
 	const route = useRoute()
 	const params = route.params as ShopDetailsRouteParams
-	const theme = useTheme()
 	const [shop, setShop] = useState<Shop>()
 
 	useEffect(() => {
@@ -49,22 +41,10 @@ export const DetailsScreen = () => {
 			.then(response => setShop(response.data))
 			.catch(() => {
 				Alert.alert('Erro de rede', 'Não foi possível buscar esse estabelecimento', [
-					{ text: 'Voltar', onPress: () => navigation.navigate(MAP) },
-					{ text: 'Continuar' }
+					{ text: 'Voltar', onPress: () => navigation.navigate(MAP) }
 				])
 			})
-		setShop({
-			id: params.id,
-			email: 'guivpw68@gmail.com',
-			city: 'São Paulo',
-			name: 'Bar do Manuel',
-			phone: '11988900772',
-			state: 'São Paulo',
-			imageUrl:
-				'https://ptanime.com/wp-content/uploads/2021/10/komisan_primeiras_impressoes_neko_komi.jpg',
-			latitude: 123,
-			longitude: 123
-		})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [params.id])
 
 	if (!shop) {
@@ -77,7 +57,7 @@ export const DetailsScreen = () => {
 
 	function handleOpenGoogleMapRoutes() {
 		Linking.openURL(
-			`https://www.google.com/maps/dir/?api=1&destination=${shop.latitude},${shop.longitude}`
+			`https://www.google.com/maps/dir/?api=1&destination=${shop?.latitude},${shop?.longitude}`
 		)
 	}
 
@@ -99,6 +79,7 @@ export const DetailsScreen = () => {
 	return (
 		<ScrollView style={{ flex: 1 }}>
 			<View style={{ padding: 24 }}>
+				<ShopImage source={{ uri: shop.imageUrl }} />
 				<Title>{shop.name}</Title>
 
 				<Description>Email: {shop.email}</Description>

@@ -5,6 +5,7 @@
 		"styled-components",
 		"build",
 		"screens",
-		"assets"
+		"assets",
+		"prettier"
 	]
 }

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/core'
@@ -45,16 +46,7 @@ export const MapScreen = () => {
 	}>({})
 	const [shops, setShops] = useState<
 		Pick<Shop, 'id' | 'imageUrl' | 'name' | 'latitude' | 'longitude'>[]
-	>([
-		{
-			id: 1,
-			imageUrl:
-				'https://png.pngtree.com/png-vector/20190118/ourlarge/pngtree-vector-shop-icon-png-image_327584.jpg',
-			name: 'Bar do Manuel',
-			latitude: 37.785834,
-			longitude: -122.406417
-		}
-	])
+	>([])
 
 	async function fetchShops() {
 		try {
@@ -99,13 +91,14 @@ export const MapScreen = () => {
 
 		loadPosition()
 		fetchShops()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	function handleNavigateToDetails(id: number) {
 		navigation.navigate('Details', { id })
 	}
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSearch = useCallback(
 		debounce(() => {
 			// fetchShops()
