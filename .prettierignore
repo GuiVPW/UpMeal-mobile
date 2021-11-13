@@ -1,0 +1,16 @@
+# Assets
+**/assets
+
+# Files
+*.json
+*.png
+
+# Build
+dist
+build
+node_modules
+
+# Misc
+.vscode
+.expo
+.expo-shared
