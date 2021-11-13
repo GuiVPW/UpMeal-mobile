@@ -22,7 +22,10 @@ export const Navigation = () => {
 					headerShown: false,
 					contentStyle: {
 						backgroundColor: theme.background.main
-					}
+					},
+					headerBackTitle: 'Voltar',
+					headerBackButtonMenuEnabled: false,
+					title: ''
 				}}
 			>
 				<AppStack.Screen name={INITIAL} component={InitialScreen} />
