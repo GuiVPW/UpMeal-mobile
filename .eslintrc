@@ -8,9 +8,10 @@
 	"extends": [
 		"plugin:@typescript-eslint/recommended",
 		"airbnb",
+		"airbnb-typescript",
 		"prettier",
 		"plugin:import/typescript",
-		"prettier/@typescript-eslint",
+		"plugin:prettier/recommended",
 		"react-app"
 	],
 	"globals": {
@@ -22,28 +23,14 @@
 			"jsx": true
 		},
 		"ecmaVersion": 2020,
-		"sourceType": "module"
+		"sourceType": "module",
+		"project": "./tsconfig.json"
 	},
-	"plugins": [
-		"import",
-		"react",
-		"react-hooks",
-		"@typescript-eslint",
-		"prettier"
-	],
+	"plugins": ["import", "react", "react-hooks", "@typescript-eslint", "prettier"],
 	"rules": {
-		"semi": [
-			"error",
-			"never"
-		],
-		"comma-dangle": [
-			"error",
-			"never"
-		],
-		"arrow-parens": [
-			"error",
-			"as-needed"
-		],
+		"semi": ["error", "never"],
+		"comma-dangle": ["error", "never"],
+		"arrow-parens": ["error", "as-needed"],
 		"consistent-return": "off",
 		"no-underscore-dangle": "off",
 		"func-names": "off",
@@ -55,20 +42,14 @@
 		"react/jsx-filename-extension": [
 			1,
 			{
-				"extensions": [
-					".ts",
-					".tsx"
-				]
+				"extensions": [".ts", ".tsx", ".png"]
 			}
 		],
 		"no-case-declarations": "off",
 		"object-shorthand": "error",
 		"no-template-curly-in-string": "error",
 		"prefer-template": "error",
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
+		"linebreak-style": ["error", "unix"],
 		"no-plusplus": [
 			"error",
 			{
@@ -123,29 +104,18 @@
 			}
 		],
 		"react/jsx-one-expression-per-line": "off",
-		"react/jsx-indent": [
-			2,
-			"tab"
-		],
+		"react/jsx-indent": [2, "tab"],
 		"react/jsx-props-no-spreading": "off",
 		"react/prop-types": "off",
-		"react/jsx-indent-props": [
-			2,
-			"tab"
-		],
-		"react/jsx-key": [
-			"warn"
-		],
+		"react/jsx-indent-props": [2, "tab"],
+		"react/jsx-key": ["warn"],
 		"react/no-array-index-key": "off",
 		"react-hooks/rules-of-hooks": "error",
 		"react-hooks/exhaustive-deps": "warn",
 		"import/no-extraneous-dependencies": "off",
 		"import/prefer-default-export": "off",
 		"import/no-unresolved": "error",
-		"@typescript-eslint/semi": [
-			"error",
-			"never"
-		],
+		"@typescript-eslint/semi": ["error", "never"],
 		"@typescript-eslint/no-explicit-any": "off",
 		"@typescript-eslint/explicit-function-return-type": "off",
 		"@typescript-eslint/ban-ts-ignore": "off",
@@ -153,14 +123,11 @@
 		"@typescript-eslint/explicit-module-boundary-types": "off",
 		"prettier/prettier": "error",
 		"import/no-cycle": "warn",
+		"import/no-named-as-default": "off",
 		"import/order": [
 			"error",
 			{
-				"groups": [
-					"builtin",
-					"external",
-					"internal"
-				],
+				"groups": ["builtin", "external", "internal"],
 				"pathGroups": [
 					{
 						"pattern": "styled-components",
@@ -177,9 +144,7 @@
 						"group": "external"
 					}
 				],
-				"pathGroupsExcludedImportTypes": [
-					"builtin"
-				],
+				"pathGroupsExcludedImportTypes": ["builtin"],
 				"newlines-between": "always",
 				"alphabetize": {
 					"order": "asc"
@@ -193,30 +158,24 @@
 				"js": "never",
 				"jsx": "never",
 				"ts": "never",
-				"tsx": "never",
-				"png": "never",
-				"svg": "never",
-				"jpg": "never",
-				"jpeg": "never"
+				"tsx": "never"
 			}
 		]
 	},
 	"settings": {
 		"import/parsers": {
-			"@typescript-eslint/parser": [
-				".ts",
-				".tsx"
-			]
+			"@typescript-eslint/parser": [".ts", ".tsx"]
 		},
 		"import/resolver": {
-			"typescript": {}
+			"node": {
+				"paths": ["src"],
+				"extensions": [".js", ".jsx", ".ts", ".tsx", ".png"]
+			}
 		}
 	},
 	"overrides": [
 		{
-			"files": [
-				"*.js"
-			],
+			"files": ["*.js"],
 			"rules": {
 				"@typescript-eslint/no-var-requires": "off"
 			}

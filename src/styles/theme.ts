@@ -5,15 +5,20 @@ export const theme = {
 		light: '#fff'
 	},
 	colors: {
-		primary: '#fe7240'
+		primary: '#22bcb5',
+		secondary: '#fe7240',
+		red: '#FF669D',
+		green: '#37C77F',
+		border: '#b3dae2'
 	},
 	text: {
 		main: '#6c6c80',
-		secondary: '#A8A8B3'
+		secondary: '#5E6C84'
 	},
 	title: {
 		main: '#322153',
-		secondary: '#41414D'
+		secondary: '#41414D',
+		light: '#fafafa'
 	},
 	border: {
 		divider: '1px solid #F0F0F5'
