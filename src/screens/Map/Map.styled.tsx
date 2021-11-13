@@ -42,6 +42,7 @@ export const CalloutContainer = styled.View`
 	height: 46px;
 	background-color: ${({ theme }) => theme.background.light};
 	border-radius: 16px;
+	elevation: 0;
 	justify-content: center;
 `
 

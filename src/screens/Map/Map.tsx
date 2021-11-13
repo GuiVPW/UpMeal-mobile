@@ -23,9 +23,13 @@ import {
 } from './Map.styled'
 import mapStyle from './map.style.json'
 
-interface Shop {
+export interface Shop {
 	id: number
 	name: string
+	email: string
+	phone: string
+	city: string
+	state: string
 	imageUrl: string
 	latitude: number
 	longitude: number
@@ -39,7 +43,9 @@ export const MapScreen = () => {
 		city?: string | null
 		region?: string | null
 	}>({})
-	const [shops, setShops] = useState<Shop[]>([
+	const [shops, setShops] = useState<
+		Pick<Shop, 'id' | 'imageUrl' | 'name' | 'latitude' | 'longitude'>[]
+	>([
 		{
 			id: 1,
 			imageUrl:
@@ -53,9 +59,11 @@ export const MapScreen = () => {
 	async function fetchShops() {
 		try {
 			const { data } = await api.get('/shops', {
-				params: {
-					name: search
-				}
+				params: search
+					? {
+							name: search
+					  }
+					: location
 			})
 
 			if (data) {
@@ -63,6 +71,7 @@ export const MapScreen = () => {
 			}
 		} catch (e) {
 			console.error(e)
+			Alert.alert('Erro de Rede!', 'Não foi possível buscar os estabelecimentos!')
 		}
 	}
 
@@ -89,12 +98,11 @@ export const MapScreen = () => {
 		}
 
 		loadPosition()
-		// fetchShops()
+		fetchShops()
 	}, [])
 
 	function handleNavigateToDetails(id: number) {
-		Alert.alert('Clique capturado!!', `Você clicou no marker com o id ${id}`)
-		// navigation.navigate('Details', { shop_id: id })
+		navigation.navigate('Details', { id })
 	}
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
@@ -144,7 +152,10 @@ export const MapScreen = () => {
 							icon={marker}
 							calloutAnchor={{ x: 0.5, y: 0 }}
 						>
-							<Callout onPress={() => handleNavigateToDetails(id)}>
+							<Callout
+								style={{ elevation: 0, borderRadius: 16 }}
+								onPress={() => handleNavigateToDetails(id)}
+							>
 								<CalloutContainer>
 									<CalloutText>{name}</CalloutText>
 								</CalloutContainer>

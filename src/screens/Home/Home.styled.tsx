@@ -9,9 +9,8 @@ export const Slide = styled(View)`
 `
 
 export const SlideImage = styled(Image)`
-	width: 320px;
-	height: 200px;
-	margin-top: 32px;
+	width: 250px;
+	height: 250px;
 	margin-bottom: 32px;
 `
 

@@ -4,6 +4,7 @@
 		"typescript",
 		"styled-components",
 		"build",
-		"screens"
+		"screens",
+		"assets"
 	]
 }
