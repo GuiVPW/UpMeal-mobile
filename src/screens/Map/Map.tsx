@@ -45,16 +45,7 @@ export const MapScreen = () => {
 	}>({})
 	const [shops, setShops] = useState<
 		Pick<Shop, 'id' | 'imageUrl' | 'name' | 'latitude' | 'longitude'>[]
-	>([
-		{
-			id: 1,
-			imageUrl:
-				'https://png.pngtree.com/png-vector/20190118/ourlarge/pngtree-vector-shop-icon-png-image_327584.jpg',
-			name: 'Bar do Manuel',
-			latitude: 37.785834,
-			longitude: -122.406417
-		}
-	])
+	>([])
 
 	async function fetchShops() {
 		try {
