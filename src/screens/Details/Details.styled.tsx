@@ -15,8 +15,9 @@ export const Description = styled(Caption)`
 `
 
 export const ShopImage = styled.Image`
-	width: ${Dimensions.get('window').width};
+	width: ${Dimensions.get('screen').width}px;
 	height: 240px;
+	margin: -24px -24px 24px;
 	resize-mode: cover;
 `
 
