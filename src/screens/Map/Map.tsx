@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/core'
@@ -90,13 +91,14 @@ export const MapScreen = () => {
 
 		loadPosition()
 		fetchShops()
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
 
 	function handleNavigateToDetails(id: number) {
 		navigation.navigate('Details', { id })
 	}
 
-	// eslint-disable-next-line react-hooks/rules-of-hooks
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSearch = useCallback(
 		debounce(() => {
 			// fetchShops()

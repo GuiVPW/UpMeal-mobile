@@ -44,6 +44,7 @@ export const DetailsScreen = () => {
 					{ text: 'Voltar', onPress: () => navigation.navigate(MAP) }
 				])
 			})
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [params.id])
 
 	if (!shop) {
