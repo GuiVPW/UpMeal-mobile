@@ -14,6 +14,7 @@ import { ActivityIndicator, IconButton } from 'react-native-paper'
 
 import marker from '../../images/marker.png'
 import { api } from '../../services/api'
+import { Shop } from '../../services/entities'
 import {
 	CalloutContainer,
 	CalloutText,
@@ -23,18 +24,6 @@ import {
 	SearchContainer
 } from './Map.styled'
 import mapStyle from './map.style.json'
-
-export interface Shop {
-	id: number
-	name: string
-	email: string
-	phone: string
-	city: string
-	state: string
-	imageUrl: string
-	latitude: number
-	longitude: number
-}
 
 export const MapScreen = () => {
 	const navigation = useNavigation()
