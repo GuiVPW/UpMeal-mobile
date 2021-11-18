@@ -10,7 +10,8 @@ export const paperTheme: typeof DefaultTheme = {
 		...baseTheme.colors,
 		text: theme.text.main,
 		primary: theme.colors.primary,
-		background: theme.background.main
+		background: theme.background.main,
+		placeholder: theme.input.placeholder
 	}
 }
 

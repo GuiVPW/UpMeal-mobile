@@ -13,12 +13,14 @@ export const theme = {
 	},
 	text: {
 		main: '#6c6c80',
-		secondary: '#5E6C84'
+		secondary: '#5E6C84',
+		link: '#4a90e2'
 	},
 	title: {
 		main: '#322153',
 		secondary: '#41414D',
-		light: '#fafafa'
+		light: '#fafafa',
+		disabled: '#d7d7d7'
 	},
 	border: {
 		divider: '1px solid #F0F0F5'
