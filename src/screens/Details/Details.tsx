@@ -5,8 +5,15 @@ import { useNavigation } from '@react-navigation/core'
 import { useRoute } from '@react-navigation/native'
 import { View, ScrollView, Linking, Alert } from 'react-native'
 import { Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import { ActivityIndicator, Title as PaperTitle, Paragraph } from 'react-native-paper'
+import {
+	ActivityIndicator,
+	Title as PaperTitle,
+	Paragraph,
+	Snackbar,
+	Colors
+} from 'react-native-paper'
 
+import FoodTable from '../../components/FoodTable/FoodTable'
 import mapMarkerImg from '../../images/marker.png'
 import { MAP } from '../../navigation/routes'
 import { api } from '../../services/api'
@@ -35,6 +42,10 @@ export const DetailsScreen = () => {
 	const params = route.params as ShopDetailsRouteParams
 	const [shop, setShop] = useState<Shop>()
 
+	const [visible, setVisible] = useState(false)
+	const [successVisible, setSuccessVisible] = useState(false)
+	const [reserved, setReserved] = useState(false)
+
 	useEffect(() => {
 		api
 			.get(`shops/${params.id}`)
@@ -49,8 +60,8 @@ export const DetailsScreen = () => {
 
 	if (!shop) {
 		return (
-			<View style={{ flex: 1, alignItems: 'center' }}>
-				<ActivityIndicator />
+			<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+				<ActivityIndicator color={Colors.red600} size="large" />
 			</View>
 		)
 	}
@@ -76,10 +87,31 @@ export const DetailsScreen = () => {
 		}
 	}
 
+	function handleReservation() {
+		api
+			.post('/reservation', {
+				shopId: params.id,
+				clientId: 1
+			})
+			.then(() => {
+				setSuccessVisible(true)
+				setReserved(true)
+			})
+			.catch(() => setVisible(true))
+	}
+
+	function openReservation() {
+		Alert.alert(
+			'Fazer uma Reserva.',
+			'Você deseja mesmo realizar uma reserva para esse estabelecimento?',
+			[{ text: 'Sim', onPress: () => handleReservation() }, { text: 'Não' }]
+		)
+	}
+
 	return (
 		<ScrollView style={{ flex: 1 }}>
 			<View style={{ padding: 24 }}>
-				<ShopImage source={{ uri: shop.imageUrl }} />
+				{shop.imageUrl && <ShopImage source={{ uri: shop.imageUrl }} />}
 				<Title>{shop.name}</Title>
 
 				<Description>Email: {shop.email}</Description>
@@ -110,17 +142,25 @@ export const DetailsScreen = () => {
 							}}
 						/>
 					</Map>
-
 					<RouteContainer onPress={() => handleOpenGoogleMapRoutes()}>
 						<Paragraph>Ver rotas no Google Maps</Paragraph>
 					</RouteContainer>
 				</MapContainer>
 
-				<ReservationButton onPress={() => {}}>
-					<FontAwesome name="calendar" size={24} color="#FFF" />
+				{shop.foods && (
+					<View style={{ marginTop: 16 }}>
+						<PaperTitle>Alimentos:</PaperTitle>
+						<FoodTable foods={shop.foods} />
+					</View>
+				)}
 
-					<ReservationButtonText>Fazer uma reserva</ReservationButtonText>
-				</ReservationButton>
+				{!reserved && (
+					<ReservationButton onPress={() => openReservation()}>
+						<FontAwesome name="calendar" size={24} color="#FFF" />
+
+						<ReservationButtonText>Fazer uma reserva</ReservationButtonText>
+					</ReservationButton>
+				)}
 
 				<ContactButton onPress={() => handleWhatsapp()}>
 					<FontAwesome name="whatsapp" size={24} color="#FFF" />
@@ -128,6 +168,32 @@ export const DetailsScreen = () => {
 					<ContactButtonText>Entrar em contato</ContactButtonText>
 				</ContactButton>
 			</View>
+			<Snackbar
+				visible={visible}
+				onDismiss={() => setVisible(false)}
+				duration={4000}
+				action={{
+					label: 'Fechar',
+					onPress: () => {
+						setVisible(false)
+					}
+				}}
+			>
+				Reserva falhou ou servidor não está conectado.
+			</Snackbar>
+			<Snackbar
+				visible={successVisible}
+				onDismiss={() => setSuccessVisible(false)}
+				duration={4000}
+				action={{
+					label: 'Fechar',
+					onPress: () => {
+						setSuccessVisible(false)
+					}
+				}}
+			>
+				Reserva feita com sucesso!
+			</Snackbar>
 		</ScrollView>
 	)
 }

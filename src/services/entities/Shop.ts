@@ -1,3 +1,4 @@
+import { Food } from './Food'
 import { Reservation } from './Reservation'
 
 export interface Shop {
@@ -11,4 +12,5 @@ export interface Shop {
 	latitude: number
 	longitude: number
 	reservations?: Reservation[]
+	foods?: Food[]
 }

@@ -1,13 +1,13 @@
-import { Link } from '@react-navigation/native'
-import { Headline, Subheading, TouchableRipple } from 'react-native-paper'
+import { Dimensions } from 'react-native'
+import { Button, Headline, Subheading, TextInput } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
 	flex: 1;
 	align-items: center;
-	justify-content: space-between;
 	background-color: ${({ theme }) => theme.colors.primary};
-	padding-vertical: 20%;
+	padding-vertical: 20px;
+	height: ${Dimensions.get('screen').height}px;
 `
 
 export const MainImage = styled.Image`
@@ -30,17 +30,16 @@ export const Title = styled(Headline)`
 	text-align: center;
 `
 
-export const StyledButton = styled(TouchableRipple)`
-	background-color: ${({ theme }) => theme.colors.secondary};
+export const StyledButton = styled(Button)`
 	elevation: 0;
-	padding-vertical: 8px;
+	padding-vertical: 4px;
 	padding-horizontal: 40px;
 	border-radius: 24px;
 `
 
-export const ButtonText = styled(Subheading)`
+export const ButtonText = styled(Subheading).withConfig<{ valid?: boolean }>({})`
 	font-weight: 700;
-	color: ${({ theme }) => theme.title.light};
+	color: ${({ theme, valid }) => (valid ? theme.title.light : theme.title.disabled)};
 	text-transform: uppercase;
 `
 
@@ -55,4 +54,9 @@ export const Subtitle = styled(Subheading)`
 export const InputContainer = styled.View`
 	padding: 24px;
 	width: 100%;
+`
+
+export const StyledInput = styled(TextInput)`
+	margin-vertical: 8px;
+	border-radius: 4px;
 `

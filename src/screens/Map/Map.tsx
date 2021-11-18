@@ -10,7 +10,7 @@ import {
 import debounce from 'lodash.debounce'
 import { Alert, Platform } from 'react-native'
 import { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
-import { ActivityIndicator, IconButton } from 'react-native-paper'
+import { ActivityIndicator } from 'react-native-paper'
 
 import marker from '../../images/marker.png'
 import { api } from '../../services/api'
@@ -90,8 +90,8 @@ export const MapScreen = () => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSearch = useCallback(
 		debounce(() => {
-			// fetchShops()
-		}, 300),
+			fetchShops()
+		}, 500),
 		[]
 	)
 
@@ -107,8 +107,6 @@ export const MapScreen = () => {
 					inputStyle={{ fontSize: 16 }}
 					placeholder="Ex: Mercadão do Douglas"
 				/>
-
-				<IconButton size={56} icon="" onPress={() => console.log('pressed')} />
 			</SearchContainer>
 			{position[0] !== 0 ? (
 				<Map
