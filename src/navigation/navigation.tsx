@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { useTheme } from 'styled-components'
 
 import { NavigationContainer } from '@react-navigation/native'
+import { getItemAsync } from 'expo-secure-store'
 
 import { DetailsScreen } from '../screens/Details'
 import { HomeScreen } from '../screens/Home'
@@ -14,11 +15,26 @@ import { AppStack } from './stack'
 
 export const Navigation = () => {
 	const theme = useTheme()
+	const [isAuth, setIsAuth] = useState(false)
+
+	useEffect(() => {
+		async function getToken() {
+			const accessId = await getItemAsync('token')
+
+			if (!accessId) {
+				return setIsAuth(false)
+			}
+
+			return setIsAuth(true)
+		}
+
+		getToken()
+	}, [])
 
 	return (
 		<NavigationContainer>
 			<AppStack.Navigator
-				initialRouteName={INITIAL}
+				initialRouteName={isAuth ? INITIAL : MAP}
 				screenOptions={{
 					headerShown: false,
 					contentStyle: {
