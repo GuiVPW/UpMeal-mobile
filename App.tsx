@@ -7,6 +7,7 @@ import { StatusBar } from 'expo-status-bar'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { ThemeProvider } from 'styled-components/native'
 
+import { AuthProvider } from './src/contexts/auth.context'
 import { Navigation } from './src/navigation/navigation'
 import { paperTheme } from './src/styles/paper-theme'
 import { theme } from './src/styles/theme'
@@ -26,7 +27,9 @@ export default function App() {
 		<ThemeProvider theme={theme}>
 			<PaperProvider theme={paperTheme}>
 				<StatusBar animated backgroundColor="transparent" translucent />
-				<Navigation />
+				<AuthProvider>
+					<Navigation />
+				</AuthProvider>
 			</PaperProvider>
 		</ThemeProvider>
 	)
