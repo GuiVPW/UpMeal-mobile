@@ -6,7 +6,7 @@ import waste from '../../images/waste.png'
 export interface Item {
 	key: string
 	title: string
-	image?: string
+	image?: any
 	text: string
 	backgroundColor: string
 }

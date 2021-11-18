@@ -1,23 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { useTheme } from 'styled-components'
 
 import { NavigationContainer } from '@react-navigation/native'
 
+import { AuthContext } from '../contexts/auth.context'
 import { DetailsScreen } from '../screens/Details'
 import { HomeScreen } from '../screens/Home'
 import { InitialScreen } from '../screens/Initial'
 import { MapScreen } from '../screens/Map'
-import { HOME, MAP, DETAILS, INITIAL } from './routes'
+import { SignupScreen } from '../screens/Signup'
+import { HOME, MAP, DETAILS, INITIAL, SIGNUP } from './routes'
 import { AppStack } from './stack'
 
 export const Navigation = () => {
 	const theme = useTheme()
+	const { isAuth } = useContext(AuthContext)
 
 	return (
 		<NavigationContainer>
 			<AppStack.Navigator
-				initialRouteName={INITIAL}
+				initialRouteName={isAuth ? MAP : INITIAL}
 				screenOptions={{
 					headerShown: false,
 					contentStyle: {
@@ -28,14 +31,26 @@ export const Navigation = () => {
 					title: ''
 				}}
 			>
-				<AppStack.Screen name={INITIAL} component={InitialScreen} />
-				<AppStack.Screen name={HOME} component={HomeScreen} />
-				<AppStack.Screen name={MAP} component={MapScreen} />
-				<AppStack.Screen
-					name={DETAILS}
-					options={{ headerShown: true }}
-					component={DetailsScreen}
-				/>
+				{!isAuth ? (
+					<>
+						<AppStack.Screen name={INITIAL} component={InitialScreen} />
+						<AppStack.Screen
+							name={SIGNUP}
+							component={SignupScreen}
+							options={{ headerShown: true }}
+						/>
+					</>
+				) : (
+					<>
+						<AppStack.Screen name={HOME} component={HomeScreen} />
+						<AppStack.Screen name={MAP} component={MapScreen} />
+						<AppStack.Screen
+							name={DETAILS}
+							options={{ headerShown: true }}
+							component={DetailsScreen}
+						/>
+					</>
+				)}
 			</AppStack.Navigator>
 		</NavigationContainer>
 	)

@@ -49,6 +49,7 @@ export const ContactButton = styled.TouchableOpacity`
 	justify-content: center;
 	align-items: center;
 	height: 56px;
+	margin-top: 16px;
 `
 
 export const ContactButtonText = styled(Paragraph)`
@@ -65,7 +66,6 @@ export const ReservationButton = styled.TouchableOpacity`
 	align-items: center;
 	height: 56px;
 	margin-top: 24px;
-	margin-bottom: 16px;
 `
 
 export const ReservationButtonText = styled(Paragraph)`
