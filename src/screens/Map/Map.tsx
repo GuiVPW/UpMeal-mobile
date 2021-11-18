@@ -90,8 +90,8 @@ export const MapScreen = () => {
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSearch = useCallback(
 		debounce(() => {
-			// fetchShops()
-		}, 300),
+			fetchShops()
+		}, 500),
 		[]
 	)
 
