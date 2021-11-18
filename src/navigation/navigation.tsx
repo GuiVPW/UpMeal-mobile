@@ -8,7 +8,8 @@ import { DetailsScreen } from '../screens/Details'
 import { HomeScreen } from '../screens/Home'
 import { InitialScreen } from '../screens/Initial'
 import { MapScreen } from '../screens/Map'
-import { HOME, MAP, DETAILS, INITIAL } from './routes'
+import { SignupScreen } from '../screens/Signup'
+import { HOME, MAP, DETAILS, INITIAL, SIGNUP } from './routes'
 import { AppStack } from './stack'
 
 export const Navigation = () => {
@@ -29,6 +30,11 @@ export const Navigation = () => {
 				}}
 			>
 				<AppStack.Screen name={INITIAL} component={InitialScreen} />
+				<AppStack.Screen
+					name={SIGNUP}
+					component={SignupScreen}
+					options={{ headerShown: true }}
+				/>
 				<AppStack.Screen name={HOME} component={HomeScreen} />
 				<AppStack.Screen name={MAP} component={MapScreen} />
 				<AppStack.Screen
