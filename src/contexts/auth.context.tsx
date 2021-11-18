@@ -11,8 +11,8 @@ export interface AuthContextProps {
 	isAuth: boolean
 	isNew: boolean
 
-	addClient: (client: Client) => void
-	changeNewStatus: (status: boolean) => void
+	addClient: (client: Client) => Promise<void>
+	changeNewStatus: (status: boolean) => Promise<void>
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment

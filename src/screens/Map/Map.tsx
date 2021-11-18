@@ -50,8 +50,7 @@ export const MapScreen = () => {
 			if (data) {
 				setShops(data)
 			}
-		} catch (e) {
-			console.error(e)
+		} catch {
 			Alert.alert('Erro de Rede!', 'Não foi possível buscar os estabelecimentos!')
 		}
 	}
