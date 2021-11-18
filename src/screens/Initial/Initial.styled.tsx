@@ -1,4 +1,3 @@
-import { Link } from '@react-navigation/native'
 import { Headline, Subheading, TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 

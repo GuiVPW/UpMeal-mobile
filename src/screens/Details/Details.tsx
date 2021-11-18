@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { FontAwesome } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core'
@@ -14,6 +14,7 @@ import {
 } from 'react-native-paper'
 
 import FoodTable from '../../components/FoodTable/FoodTable'
+import { AuthContext } from '../../contexts/auth.context'
 import mapMarkerImg from '../../images/marker.png'
 import { MAP } from '../../navigation/routes'
 import { api } from '../../services/api'
@@ -38,6 +39,7 @@ interface ShopDetailsRouteParams {
 
 export const DetailsScreen = () => {
 	const navigation = useNavigation()
+	const { client } = useContext(AuthContext)
 	const route = useRoute()
 	const params = route.params as ShopDetailsRouteParams
 	const [shop, setShop] = useState<Shop>()
@@ -91,7 +93,7 @@ export const DetailsScreen = () => {
 		api
 			.post('/reservation', {
 				shopId: params.id,
-				clientId: 1
+				clientId: client?.id
 			})
 			.then(() => {
 				setSuccessVisible(true)
