@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import { useTheme } from 'styled-components'
 
 import { useNavigation } from '@react-navigation/core'
-import { setItemAsync } from 'expo-secure-store'
 import { useForm, Controller } from 'react-hook-form'
 import { Snackbar, TextInput } from 'react-native-paper'
 
+import { AuthContext } from '../../contexts/auth.context'
 import { INITIAL } from '../../navigation/routes'
 import { api } from '../../services/api'
 import {
@@ -37,6 +37,7 @@ export const SignupScreen = () => {
 	const [visible, setVisible] = useState(false)
 	const theme = useTheme()
 	const navigation = useNavigation()
+	const { addClient, changeNewStatus } = useContext(AuthContext)
 
 	const onSubmit = (data: SignupForm) => {
 		setLoading(true)
@@ -44,8 +45,9 @@ export const SignupScreen = () => {
 		api
 			.post('/client', data)
 			.then(async response => {
-				await setItemAsync('is_new', 'true')
-				await setItemAsync('token', response.data.accessId)
+				await addClient(response.data)
+				await changeNewStatus(true)
+
 				navigation.navigate(INITIAL)
 			})
 			.catch(async () => {
