@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { useNavigation } from '@react-navigation/core'
-import { setItemAsync, getItemAsync } from 'expo-secure-store'
+import { setItemAsync } from 'expo-secure-store'
 import { ListRenderItemInfo } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 
@@ -27,7 +27,6 @@ export const HomeScreen = () => {
 
 	const onDone = () => {
 		setItemAsync('is_new', String(false)).then(async () => {
-			console.log(await getItemAsync('is_new'))
 			navigator.navigate(MAP)
 		})
 	}
