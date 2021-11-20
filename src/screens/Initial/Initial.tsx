@@ -27,7 +27,7 @@ export const InitialScreen = () => {
 
 	const handleNavigate = () => {
 		api
-			.post('/client/login', { accessId: id })
+			.post('/clients/authenticate', { accessId: id })
 			.then(async response => {
 				await addClient(response.data)
 				await changeNewStatus(false)
