@@ -38,14 +38,14 @@ export const AuthProvider: FC = ({ children }) => {
 					headers: { authorization: tokenReceived as string }
 				})
 
-				if (!shopsData.data) {
-					await deleteItemAsync('token')
-					setToken(undefined)
-					setIsAuth(false)
-				} else {
+				if (shopsData.data.accessId) {
 					setToken(tokenReceived as string)
 					setIsAuth(true)
 					setIsNew(false)
+				} else {
+					await deleteItemAsync('token')
+					setToken(undefined)
+					setIsAuth(false)
 				}
 			} catch {
 				setToken(undefined)
