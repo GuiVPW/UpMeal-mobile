@@ -4,6 +4,7 @@ import { useTheme } from 'styled-components'
 
 import { useNavigation } from '@react-navigation/core'
 import { useForm, Controller } from 'react-hook-form'
+import { Alert } from 'react-native'
 import { Snackbar, TextInput } from 'react-native-paper'
 
 import { AuthContext } from '../../contexts/auth.context'
@@ -43,10 +44,17 @@ export const SignupScreen = () => {
 		setLoading(true)
 
 		api
-			.post('/client', data)
+			.post('/clients', data)
 			.then(async response => {
 				await addClient(response.data)
 				await changeNewStatus(true)
+
+				Alert.alert(
+					`Bem-vindo!`,
+					`Seja muito bem vindo ao UpMeal!! Agora você só precisa guardar o seu acesso único e aproveitar tudo que temos a oferecer!`
+				)
+
+				Alert.alert('Id de acesso:', response.data.accessId)
 
 				navigation.navigate(INITIAL)
 			})
@@ -73,7 +81,7 @@ export const SignupScreen = () => {
 					}}
 					render={({ fieldState: { error }, field: { onChange, value } }) => (
 						<StyledInput
-							label="Nome:"
+							label="Nome"
 							defaultValue=""
 							error={!!error}
 							placeholder="Ex: Guilherme Vieira"
@@ -92,7 +100,7 @@ export const SignupScreen = () => {
 					}}
 					render={({ fieldState: { error }, field: { onChange, value } }) => (
 						<StyledInput
-							label="Telefone:"
+							label="Telefone"
 							defaultValue=""
 							error={!!error}
 							placeholder="Ex: 11988900772"
@@ -110,7 +118,7 @@ export const SignupScreen = () => {
 					}}
 					render={({ fieldState: { error }, field: { onChange, value } }) => (
 						<StyledInput
-							label="Cidade:"
+							label="Cidade"
 							defaultValue=""
 							error={!!error}
 							placeholder="Ex: Guarulhos"
@@ -129,7 +137,7 @@ export const SignupScreen = () => {
 					}}
 					render={({ fieldState: { error }, field: { onChange, value } }) => (
 						<StyledInput
-							label="Estado:"
+							label="Estado"
 							defaultValue=""
 							error={!!error}
 							placeholder="Ex: SP"
