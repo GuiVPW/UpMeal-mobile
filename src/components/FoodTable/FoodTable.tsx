@@ -28,17 +28,17 @@ export const FoodTable = ({ foods }: FoodTableProps) => {
 						<StyledHeader>Quilogramas (kg)</StyledHeader>
 						<StyledHeader>Disponibilidade</StyledHeader>
 					</DataTable.Header>
-					{chunkedFoods[page].map(({ id, name, quantity, availability, validity }) => (
+					{chunkedFoods[page].map(({ id, name, quantity, isAvailable, validationdate }) => (
 						<DataTable.Row key={id}>
 							<StyledCell>{name}</StyledCell>
 							<StyledCell>
-								{new Date(validity).toLocaleDateString('pt-BR', {
+								{new Date(validationdate).toLocaleDateString('pt-BR', {
 									month: 'short',
 									day: 'numeric'
 								})}
 							</StyledCell>
 							<StyledCell numeric>{quantity}</StyledCell>
-							<StyledCell>{availability ? 'Sim' : 'Não'}</StyledCell>
+							<StyledCell>{isAvailable ? 'Sim' : 'Não'}</StyledCell>
 						</DataTable.Row>
 					))}
 				</View>
