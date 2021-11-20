@@ -31,26 +31,19 @@ export const Navigation = () => {
 					title: ''
 				}}
 			>
-				{!isAuth ? (
-					<>
-						<AppStack.Screen name={INITIAL} component={InitialScreen} />
-						<AppStack.Screen
-							name={SIGNUP}
-							component={SignupScreen}
-							options={{ headerShown: true }}
-						/>
-					</>
-				) : (
-					<>
-						<AppStack.Screen name={HOME} component={HomeScreen} />
-						<AppStack.Screen name={MAP} component={MapScreen} />
-						<AppStack.Screen
-							name={DETAILS}
-							options={{ headerShown: true }}
-							component={DetailsScreen}
-						/>
-					</>
-				)}
+				<AppStack.Screen name={INITIAL} component={InitialScreen} />
+				<AppStack.Screen
+					name={SIGNUP}
+					component={SignupScreen}
+					options={{ headerShown: true }}
+				/>
+				<AppStack.Screen name={HOME} component={HomeScreen} />
+				<AppStack.Screen name={MAP} component={MapScreen} />
+				<AppStack.Screen
+					name={DETAILS}
+					options={{ headerShown: true }}
+					component={DetailsScreen}
+				/>
 			</AppStack.Navigator>
 		</NavigationContainer>
 	)
