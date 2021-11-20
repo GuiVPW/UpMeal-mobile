@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { useNavigation } from '@react-navigation/core'
-import { setItemAsync } from 'expo-secure-store'
+import { setItemAsync, deleteItemAsync } from 'expo-secure-store'
 import { ListRenderItemInfo } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 
@@ -11,6 +11,14 @@ import { Item, slides } from './slides.constants'
 
 export const HomeScreen = () => {
 	const navigator = useNavigation()
+
+	useEffect(() => {
+		;(async () => {
+			await deleteItemAsync('token')
+			await deleteItemAsync('is_new')
+		})()
+	}, [])
+
 	const renderItem = ({ item }: ListRenderItemInfo<Item>) => {
 		const { backgroundColor, image, key, text, title } = item
 
