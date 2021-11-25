@@ -40,11 +40,9 @@ export const MapScreen = () => {
 	async function fetchShops() {
 		try {
 			const { data } = await api.get('/shops', {
-				params: search
-					? {
-							name: search
-					  }
-					: location
+				params: {
+					name: search
+				}
 			})
 
 			if (data) {
