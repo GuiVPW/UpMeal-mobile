@@ -4,8 +4,7 @@ import { useTheme } from 'styled-components'
 
 import { useNavigation } from '@react-navigation/core'
 import { useForm, Controller } from 'react-hook-form'
-import { Alert } from 'react-native'
-import { Snackbar, TextInput } from 'react-native-paper'
+import { ActivityIndicator, Snackbar, TextInput } from 'react-native-paper'
 
 import { AuthContext } from '../../contexts/auth.context'
 import { INITIAL } from '../../navigation/routes'
@@ -44,25 +43,17 @@ export const SignupScreen = () => {
 		setLoading(true)
 
 		api
-			.post('/clients', data)
+			.post('clients', data)
 			.then(async response => {
-				await addClient(response.data)
+				await addClient(response.data.client)
 				await changeNewStatus(true)
-
-				Alert.alert(
-					`Bem-vindo!`,
-					`Seja muito bem vindo ao UpMeal!! Agora você só precisa guardar o seu acesso único e aproveitar tudo que temos a oferecer!`
-				)
-
-				Alert.alert('Id de acesso:', response.data.accessId)
 
 				navigation.navigate(INITIAL)
 			})
 			.catch(async () => {
 				setVisible(true)
+				setLoading(false)
 			})
-
-		setLoading(false)
 	}
 
 	return (
@@ -95,7 +86,7 @@ export const SignupScreen = () => {
 					name="phone"
 					rules={{
 						required: true,
-						minLength: 11,
+						minLength: 10,
 						maxLength: 11
 					}}
 					render={({ fieldState: { error }, field: { onChange, value } }) => (
@@ -150,16 +141,21 @@ export const SignupScreen = () => {
 				/>
 			</InputContainer>
 
-			<StyledButton
-				loading={loading}
-				style={{
-					backgroundColor: isValid ? theme.colors.secondary : theme.input.placeholder
-				}}
-				disabled={!isValid}
-				onPress={handleSubmit(onSubmit)}
-			>
-				<ButtonText valid={isValid}>Começar</ButtonText>
-			</StyledButton>
+			{loading ? (
+				<ActivityIndicator animating color="white" />
+			) : (
+				<StyledButton
+					loading={loading}
+					style={{
+						backgroundColor: isValid ? theme.colors.secondary : theme.input.placeholder
+					}}
+					disabled={!isValid}
+					onPress={handleSubmit(onSubmit)}
+				>
+					<ButtonText valid={isValid}>Começar</ButtonText>
+				</StyledButton>
+			)}
+
 			<Snackbar
 				visible={visible}
 				onDismiss={() => setVisible(false)}
