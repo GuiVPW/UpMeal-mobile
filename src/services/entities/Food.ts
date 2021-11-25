@@ -3,6 +3,6 @@ export interface Food {
 	name: string
 	quantity: number
 	isAvailable: boolean
-	validationdate: Date
+	validationDate: Date
 	shopId: number
 }
