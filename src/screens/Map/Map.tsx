@@ -37,16 +37,16 @@ export const MapScreen = () => {
 		Pick<Shop, 'id' | 'imageUrl' | 'name' | 'latitude' | 'longitude'>[]
 	>([])
 
-	async function fetchShops() {
+	async function fetchShops(q?: string) {
 		try {
-			const { data } = await api.get('/shops', {
+			const response = await api.get('/shops', {
 				params: {
-					name: search
+					name: q
 				}
 			})
 
-			if (data) {
-				setShops(data)
+			if (response.data) {
+				setShops(response.data.shops)
 			}
 		} catch {
 			Alert.alert('Erro de Rede!', 'Não foi possível buscar os estabelecimentos!')
@@ -86,9 +86,7 @@ export const MapScreen = () => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSearch = useCallback(
-		debounce(() => {
-			fetchShops()
-		}, 500),
+		debounce(query => fetchShops(query), 700),
 		[]
 	)
 
@@ -99,7 +97,7 @@ export const MapScreen = () => {
 					value={search}
 					onChangeText={query => {
 						setSearch(query)
-						debouncedSearch()
+						debouncedSearch(query)
 					}}
 					inputStyle={{ fontSize: 16 }}
 					placeholder="Ex: Mercadão do Douglas"
@@ -121,24 +119,24 @@ export const MapScreen = () => {
 					provider={PROVIDER_GOOGLE}
 					customMapStyle={mapStyle}
 				>
-					{shops.map(({ id, imageUrl, name, ...coords }) => (
-						<Marker
-							key={id}
-							onPress={() => handleNavigateToDetails(id)}
-							coordinate={coords}
-							icon={marker}
-							calloutAnchor={{ x: 0.5, y: 0 }}
-						>
-							<Callout
-								style={{ elevation: 0, borderRadius: 16 }}
-								onPress={() => handleNavigateToDetails(id)}
+					{shops &&
+						shops.map(({ id, imageUrl, name, ...coords }) => (
+							<Marker
+								key={id}
+								coordinate={coords}
+								icon={marker}
+								calloutAnchor={{ x: 0.5, y: 0 }}
 							>
-								<CalloutContainer>
-									<CalloutText>{name}</CalloutText>
-								</CalloutContainer>
-							</Callout>
-						</Marker>
-					))}
+								<Callout
+									style={{ elevation: 0, borderRadius: 16 }}
+									onPress={() => handleNavigateToDetails(id)}
+								>
+									<CalloutContainer>
+										<CalloutText>{name}</CalloutText>
+									</CalloutContainer>
+								</Callout>
+							</Marker>
+						))}
 				</Map>
 			) : (
 				<ActivityIndicator animating />
