@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { FontAwesome } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/core'
@@ -14,7 +14,6 @@ import {
 } from 'react-native-paper'
 
 import FoodTable from '../../components/FoodTable/FoodTable'
-import { AuthContext } from '../../contexts/auth.context'
 import mapMarkerImg from '../../images/marker.png'
 import { MAP } from '../../navigation/routes'
 import { api } from '../../services/api'
@@ -39,7 +38,6 @@ interface ShopDetailsRouteParams {
 
 export const DetailsScreen = () => {
 	const navigation = useNavigation()
-	const { client } = useContext(AuthContext)
 	const route = useRoute()
 	const params = route.params as ShopDetailsRouteParams
 	const [shop, setShop] = useState<Shop>()
@@ -51,7 +49,18 @@ export const DetailsScreen = () => {
 	useEffect(() => {
 		api
 			.get(`shops/${params.id}`)
-			.then(response => setShop(response.data))
+			.then(async response => {
+				setShop(response.data.shop)
+				try {
+					const reservationResponse = await api.get(`shops/${params.id}/reservations`)
+
+					if (reservationResponse.data.id) {
+						setReserved(TRUE)
+					}
+				} catch (e) {
+					console.error(e)
+				}
+			})
 			.catch(() => {
 				Alert.alert('Erro de rede', 'Não foi possível buscar esse estabelecimento', [
 					{ text: 'Voltar', onPress: () => navigation.navigate(MAP) }
@@ -91,10 +100,7 @@ export const DetailsScreen = () => {
 
 	function handleReservation() {
 		api
-			.post('/reservation', {
-				shopId: params.id,
-				clientId: client?.id
-			})
+			.post(`/shops/${params.id}/reservations`)
 			.then(() => {
 				setSuccessVisible(true)
 				setReserved(true)
