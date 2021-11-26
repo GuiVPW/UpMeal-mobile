@@ -23,8 +23,10 @@ export const api = new Axios({
 	],
 	transformResponse: [
 		function transformResponse(data) {
-			if (JSON.parse(data)) {
+			try {
 				return JSON.parse(data)
+			} catch {
+				return data
 			}
 		}
 	]
