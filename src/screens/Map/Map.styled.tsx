@@ -5,7 +5,6 @@ import styled from 'styled-components/native'
 
 export const ScreenContainer = styled(SafeAreaView)`
 	flex: 1;
-	padding: 16px;
 `
 
 export const Map = styled(MapView)`

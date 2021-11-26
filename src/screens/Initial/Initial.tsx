@@ -11,6 +11,7 @@ import { api } from '../../services/api'
 import {
 	ButtonText,
 	Container,
+	ImageContainer,
 	InputContainer,
 	MainImage,
 	StyledButton,
@@ -45,7 +46,9 @@ export const InitialScreen = () => {
 
 	return (
 		<Container>
-			<MainImage source={appImage} />
+			<ImageContainer>
+				<MainImage source={appImage} />
+			</ImageContainer>
 			<TextContainer>
 				<Title>UpMeal</Title>
 				<Subtitle>Diminuindo o desperdício</Subtitle>

@@ -1,6 +1,6 @@
 import { Dimensions } from 'react-native'
 import MapView from 'react-native-maps'
-import { Button, Caption, Divider, Headline, Paragraph } from 'react-native-paper'
+import { Button, Caption, Colors, Divider, Headline, Paragraph } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 export const Title = styled(Headline)`
@@ -59,7 +59,8 @@ export const ContactButtonText = styled(Paragraph)`
 `
 
 export const ReservationButton = styled.TouchableOpacity`
-	background-color: ${({ theme }) => theme.colors.red};
+	background-color: ${({ theme, disabled }) =>
+		disabled ? Colors.pink100 : theme.colors.red};
 	border-radius: 20px;
 	flex-direction: row;
 	justify-content: center;

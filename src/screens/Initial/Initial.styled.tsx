@@ -9,10 +9,18 @@ export const Container = styled.View`
 	padding-vertical: 20%;
 `
 
-export const MainImage = styled.Image`
-	width: 30%;
-	height: 30%;
+export const ImageContainer = styled.View`
+	width: 260px;
+	height: 350px;
 	margin-bottom: 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
+
+export const MainImage = styled.Image`
+	width: 100%;
+	height: 100%;
 `
 
 export const TextContainer = styled.View`

@@ -2,11 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/core'
-import {
-	getCurrentPositionAsync,
-	requestForegroundPermissionsAsync,
-	reverseGeocodeAsync
-} from 'expo-location'
+import { getCurrentPositionAsync, requestForegroundPermissionsAsync } from 'expo-location'
 import debounce from 'lodash.debounce'
 import { Alert, Platform } from 'react-native'
 import { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
@@ -29,24 +25,20 @@ export const MapScreen = () => {
 	const navigation = useNavigation()
 	const [search, setSearch] = useState<string>('')
 	const [position, setPosition] = useState<[number, number]>([0, 0])
-	const [location, setLocation] = useState<{
-		city?: string | null
-		region?: string | null
-	}>({})
 	const [shops, setShops] = useState<
 		Pick<Shop, 'id' | 'imageUrl' | 'name' | 'latitude' | 'longitude'>[]
 	>([])
 
-	async function fetchShops() {
+	async function fetchShops(q?: string) {
 		try {
-			const { data } = await api.get('/shops', {
+			const response = await api.get('/shops', {
 				params: {
-					name: search
+					name: q
 				}
 			})
 
-			if (data) {
-				setShops(data)
+			if (response.data) {
+				setShops(response.data.shops)
 			}
 		} catch {
 			Alert.alert('Erro de Rede!', 'Não foi possível buscar os estabelecimentos!')
@@ -69,9 +61,6 @@ export const MapScreen = () => {
 
 			const { latitude, longitude } = currentPosition.coords
 
-			const [{ city, region }] = await reverseGeocodeAsync({ latitude, longitude })
-
-			setLocation({ city, region })
 			setPosition([latitude, longitude])
 		}
 
@@ -86,9 +75,7 @@ export const MapScreen = () => {
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const debouncedSearch = useCallback(
-		debounce(() => {
-			fetchShops()
-		}, 500),
+		debounce(query => fetchShops(query), 700),
 		[]
 	)
 
@@ -99,7 +86,7 @@ export const MapScreen = () => {
 					value={search}
 					onChangeText={query => {
 						setSearch(query)
-						debouncedSearch()
+						debouncedSearch(query)
 					}}
 					inputStyle={{ fontSize: 16 }}
 					placeholder="Ex: Mercadão do Douglas"
@@ -121,24 +108,24 @@ export const MapScreen = () => {
 					provider={PROVIDER_GOOGLE}
 					customMapStyle={mapStyle}
 				>
-					{shops.map(({ id, imageUrl, name, ...coords }) => (
-						<Marker
-							key={id}
-							onPress={() => handleNavigateToDetails(id)}
-							coordinate={coords}
-							icon={marker}
-							calloutAnchor={{ x: 0.5, y: 0 }}
-						>
-							<Callout
-								style={{ elevation: 0, borderRadius: 16 }}
-								onPress={() => handleNavigateToDetails(id)}
+					{shops &&
+						shops.map(({ id, imageUrl, name, ...coords }) => (
+							<Marker
+								key={id}
+								coordinate={coords}
+								icon={marker}
+								calloutAnchor={{ x: 0.5, y: 0 }}
 							>
-								<CalloutContainer>
-									<CalloutText>{name}</CalloutText>
-								</CalloutContainer>
-							</Callout>
-						</Marker>
-					))}
+								<Callout
+									style={{ elevation: 0, borderRadius: 16 }}
+									onPress={() => handleNavigateToDetails(id)}
+								>
+									<CalloutContainer>
+										<CalloutText>{name}</CalloutText>
+									</CalloutContainer>
+								</Callout>
+							</Marker>
+						))}
 				</Map>
 			) : (
 				<ActivityIndicator animating />
