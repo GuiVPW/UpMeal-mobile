@@ -41,6 +41,7 @@ export const DetailsScreen = () => {
 	const route = useRoute()
 	const params = route.params as ShopDetailsRouteParams
 	const [shop, setShop] = useState<Shop>()
+	const [foods, setFoods] = useState<Food[]>()
 
 	const [visible, setVisible] = useState(false)
 	const [successVisible, setSuccessVisible] = useState(false)
@@ -52,10 +53,20 @@ export const DetailsScreen = () => {
 			.then(async response => {
 				setShop(response.data.shop)
 				try {
+					const { data } = await api.get(`shops/${params.id}/foods`)
+
+					if (data) {
+						setFoods(data.foods)
+					}
+				} catch (e) {
+					console.error(e)
+				}
+
+				try {
 					const reservationResponse = await api.get(`shops/${params.id}/reservations`)
 
 					if (reservationResponse.data.id) {
-						setReserved(TRUE)
+						setReserved(true)
 					}
 				} catch (e) {
 					console.error(e)
@@ -155,20 +166,18 @@ export const DetailsScreen = () => {
 					</RouteContainer>
 				</MapContainer>
 
-				{shop.foods && (
+				{foods && (
 					<View style={{ marginTop: 16 }}>
 						<PaperTitle>Alimentos:</PaperTitle>
-						<FoodTable foods={shop.foods} />
+						<FoodTable foods={foods} />
 					</View>
 				)}
 
-				{!reserved && (
-					<ReservationButton onPress={() => openReservation()}>
-						<FontAwesome name="calendar" size={24} color="#FFF" />
+				<ReservationButton disabled={reserved} onPress={() => openReservation()}>
+					<FontAwesome name="calendar" size={24} color="#FFF" />
 
-						<ReservationButtonText>Fazer uma reserva</ReservationButtonText>
-					</ReservationButton>
-				)}
+					<ReservationButtonText>Fazer uma reserva</ReservationButtonText>
+				</ReservationButton>
 
 				<ContactButton onPress={() => handleWhatsapp()}>
 					<FontAwesome name="whatsapp" size={24} color="#FFF" />
