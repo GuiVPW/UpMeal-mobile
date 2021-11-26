@@ -167,7 +167,7 @@ export const SignupScreen = () => {
 					}
 				}}
 			>
-				Usuário já existe ou servidor não conectado.
+				Usuário com esse nome ou telefone já existe.
 			</Snackbar>
 		</Container>
 	)

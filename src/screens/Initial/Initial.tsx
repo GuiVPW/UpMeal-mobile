@@ -89,7 +89,7 @@ export const InitialScreen = () => {
 					}
 				}}
 			>
-				ID inválido ou servidor não está conectado.
+				ID inválido.
 			</Snackbar>
 		</Container>
 	)

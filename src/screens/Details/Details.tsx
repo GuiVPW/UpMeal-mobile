@@ -196,7 +196,7 @@ export const DetailsScreen = () => {
 					}
 				}}
 			>
-				Reserva falhou ou servidor não está conectado.
+				Reserva falhou.
 			</Snackbar>
 			<Snackbar
 				visible={successVisible}
