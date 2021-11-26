@@ -10,6 +10,7 @@ export interface AuthContextProps {
 	token?: string
 	isAuth: boolean
 	isNew: boolean
+	loading: boolean
 
 	addClient: (client: Client) => Promise<void>
 	changeNewStatus: (status: boolean) => Promise<void>
@@ -21,24 +22,27 @@ export const AuthContext = createContext<AuthContextProps>()
 
 export const AuthProvider: FC = ({ children }) => {
 	const [isAuth, setIsAuth] = useState(false)
+	const [loading, setLoading] = useState(false)
 	const [client, setClient] = useState<Client>()
 	const [token, setToken] = useState<string>()
 	const [isNew, setIsNew] = useState(true)
 
 	useEffect(() => {
 		async function checkAuth() {
+			setLoading(true)
 			try {
 				const tokenReceived = await getItemAsync('token')
 
 				if (!tokenReceived) {
 					setIsAuth(false)
+					setLoading(false)
 				}
 
-				const shopsData = await api.get('/clients/authenticate', {
-					headers: { authorization: tokenReceived as string }
+				const shopsData = await api.post('/clients/authenticate', {
+					accessToken: tokenReceived
 				})
 
-				if (shopsData.data.accessId) {
+				if (shopsData.data.client.accessId) {
 					setToken(tokenReceived as string)
 					setIsAuth(true)
 					setIsNew(false)
@@ -47,6 +51,8 @@ export const AuthProvider: FC = ({ children }) => {
 					setToken(undefined)
 					setIsAuth(false)
 				}
+
+				setLoading(false)
 			} catch {
 				setToken(undefined)
 				setIsAuth(false)
@@ -70,6 +76,7 @@ export const AuthProvider: FC = ({ children }) => {
 	return (
 		<AuthContext.Provider
 			value={{
+				loading,
 				isAuth,
 				client,
 				token,
