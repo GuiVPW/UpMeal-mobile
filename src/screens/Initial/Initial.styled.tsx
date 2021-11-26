@@ -1,4 +1,4 @@
-import { Headline, Subheading, TouchableRipple } from 'react-native-paper'
+import { Colors, Headline, Subheading, TouchableRipple } from 'react-native-paper'
 import styled from 'styled-components/native'
 
 export const Container = styled.View`
@@ -9,10 +9,18 @@ export const Container = styled.View`
 	padding-vertical: 20%;
 `
 
-export const MainImage = styled.Image`
-	width: 30%;
-	height: 30%;
+export const ImageContainer = styled.View`
+	width: 260px;
+	height: 350px;
 	margin-bottom: 32px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`
+
+export const MainImage = styled.Image`
+	width: 100%;
+	height: 100%;
 `
 
 export const TextContainer = styled.View`
@@ -30,7 +38,8 @@ export const Title = styled(Headline)`
 `
 
 export const StyledButton = styled(TouchableRipple)`
-	background-color: ${({ theme }) => theme.colors.secondary};
+	background-color: ${({ theme, disabled }) =>
+		disabled ? Colors.grey500 : theme.colors.secondary};
 	elevation: 0;
 	padding-vertical: 8px;
 	padding-horizontal: 40px;

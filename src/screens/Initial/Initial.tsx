@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/core'
 import { Button } from 'react-native'
-import { Snackbar, TextInput } from 'react-native-paper'
+import { Snackbar, TextInput, ActivityIndicator } from 'react-native-paper'
 
 import { AuthContext } from '../../contexts/auth.context'
 import appImage from '../../images/icon.png'
@@ -11,6 +11,7 @@ import { api } from '../../services/api'
 import {
 	ButtonText,
 	Container,
+	ImageContainer,
 	InputContainer,
 	MainImage,
 	StyledButton,
@@ -22,24 +23,32 @@ import {
 export const InitialScreen = () => {
 	const navigation = useNavigation()
 	const [visible, setVisible] = useState(false)
+	const [loading, setLoading] = useState(false)
 	const [id, setId] = useState('')
 	const { addClient, changeNewStatus } = useContext(AuthContext)
 
 	const handleNavigate = () => {
+		setLoading(true)
 		api
-			.post('/clients/authenticate', { accessId: id })
+			.post('/clients/authenticate', { accessToken: id })
 			.then(async response => {
-				await addClient(response.data)
+				await addClient(response.data.client)
 				await changeNewStatus(false)
+				setLoading(false)
 
 				navigation.navigate(MAP)
 			})
-			.catch(() => setVisible(true))
+			.catch(() => {
+				setLoading(false)
+				setVisible(true)
+			})
 	}
 
 	return (
 		<Container>
-			<MainImage source={appImage} />
+			<ImageContainer>
+				<MainImage source={appImage} />
+			</ImageContainer>
 			<TextContainer>
 				<Title>UpMeal</Title>
 				<Subtitle>Diminuindo o desperdício</Subtitle>
@@ -52,9 +61,18 @@ export const InitialScreen = () => {
 					placeholder="Ex: b74b0818..."
 				/>
 			</InputContainer>
-			<StyledButton rippleColor="rgba(0, 0, 0, .32)" onPress={() => handleNavigate()}>
-				<ButtonText>Começar</ButtonText>
-			</StyledButton>
+
+			{loading ? (
+				<ActivityIndicator animating color="white" />
+			) : (
+				<StyledButton
+					rippleColor="rgba(0, 0, 0, .32)"
+					onPress={() => handleNavigate()}
+					disabled={loading}
+				>
+					<ButtonText>Começar</ButtonText>
+				</StyledButton>
+			)}
 			<Button
 				title="Não tenho cadastro."
 				color="white"

@@ -4,7 +4,7 @@ import { getItemAsync } from 'expo-secure-store'
 const { API_URL } = process.env
 
 export const api = new Axios({
-	baseURL: API_URL || 'http://127.0.0.1:8080/api/rest',
+	baseURL: API_URL || 'http://127.0.0.1:8080/',
 	timeout: 5000,
 	headers: {
 		'Content-type': 'application/json'
@@ -23,7 +23,11 @@ export const api = new Axios({
 	],
 	transformResponse: [
 		function transformResponse(data) {
-			return JSON.parse(data)
+			try {
+				return JSON.parse(data)
+			} catch {
+				return data
+			}
 		}
 	]
 })

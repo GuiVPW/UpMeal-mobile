@@ -3,6 +3,7 @@ import React, { useContext } from 'react'
 import { useTheme } from 'styled-components'
 
 import { NavigationContainer } from '@react-navigation/native'
+import AppLoading from 'expo-app-loading'
 
 import { AuthContext } from '../contexts/auth.context'
 import { DetailsScreen } from '../screens/Details'
@@ -15,7 +16,11 @@ import { AppStack } from './stack'
 
 export const Navigation = () => {
 	const theme = useTheme()
-	const { isAuth } = useContext(AuthContext)
+	const { isAuth, loading } = useContext(AuthContext)
+
+	if (loading) {
+		return <AppLoading />
+	}
 
 	return (
 		<NavigationContainer>
