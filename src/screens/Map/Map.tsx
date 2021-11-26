@@ -2,11 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/core'
-import {
-	getCurrentPositionAsync,
-	requestForegroundPermissionsAsync,
-	reverseGeocodeAsync
-} from 'expo-location'
+import { getCurrentPositionAsync, requestForegroundPermissionsAsync } from 'expo-location'
 import debounce from 'lodash.debounce'
 import { Alert, Platform } from 'react-native'
 import { Callout, Marker, PROVIDER_GOOGLE } from 'react-native-maps'
@@ -29,10 +25,6 @@ export const MapScreen = () => {
 	const navigation = useNavigation()
 	const [search, setSearch] = useState<string>('')
 	const [position, setPosition] = useState<[number, number]>([0, 0])
-	const [location, setLocation] = useState<{
-		city?: string | null
-		region?: string | null
-	}>({})
 	const [shops, setShops] = useState<
 		Pick<Shop, 'id' | 'imageUrl' | 'name' | 'latitude' | 'longitude'>[]
 	>([])
@@ -69,9 +61,6 @@ export const MapScreen = () => {
 
 			const { latitude, longitude } = currentPosition.coords
 
-			const [{ city, region }] = await reverseGeocodeAsync({ latitude, longitude })
-
-			setLocation({ city, region })
 			setPosition([latitude, longitude])
 		}
 
