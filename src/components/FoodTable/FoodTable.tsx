@@ -30,7 +30,7 @@ export const FoodTable = ({ foods }: FoodTableProps) => {
 					</DataTable.Header>
 					{chunkedFoods[page].map(({ id, name, quantity, isAvailable, validationDate }) => (
 						<DataTable.Row key={id}>
-							<StyledCell>{name}</StyledCell>
+							<StyledCell>{name.charAt(0).toUpperCase() + name.substring(1)}</StyledCell>
 							<StyledCell>
 								{new Date(validationDate).toLocaleDateString('pt-BR', {
 									month: 'short',
