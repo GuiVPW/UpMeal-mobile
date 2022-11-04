@@ -17,7 +17,7 @@ import FoodTable from '../../components/FoodTable/FoodTable'
 import mapMarkerImg from '../../images/marker.png'
 import { MAP } from '../../navigation/routes'
 import { api } from '../../services/api'
-import { Shop } from '../../services/entities'
+import { Food, Shop } from '../../services/entities'
 import {
 	ContactButton,
 	ContactButtonText,

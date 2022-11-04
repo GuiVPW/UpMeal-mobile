@@ -28,19 +28,21 @@ export const FoodTable = ({ foods }: FoodTableProps) => {
 						<StyledHeader>Quilogramas (kg)</StyledHeader>
 						<StyledHeader>Disponibilidade</StyledHeader>
 					</DataTable.Header>
-					{chunkedFoods[page].map(({ id, name, quantity, isAvailable, validationDate }) => (
-						<DataTable.Row key={id}>
-							<StyledCell>{name.charAt(0).toUpperCase() + name.substring(1)}</StyledCell>
-							<StyledCell>
-								{new Date(validationDate).toLocaleDateString('pt-BR', {
-									month: 'short',
-									day: 'numeric'
-								})}
-							</StyledCell>
-							<StyledCell numeric>{quantity}</StyledCell>
-							<StyledCell>{isAvailable ? 'Sim' : 'Não'}</StyledCell>
-						</DataTable.Row>
-					))}
+					{chunkedFoods[page]?.map(
+						({ id, name, quantity, isAvailable, validationDate }) => (
+							<DataTable.Row key={id}>
+								<StyledCell>{name.charAt(0).toUpperCase() + name.substring(1)}</StyledCell>
+								<StyledCell>
+									{new Date(validationDate).toLocaleDateString('pt-BR', {
+										month: 'short',
+										day: 'numeric'
+									})}
+								</StyledCell>
+								<StyledCell numeric>{quantity}</StyledCell>
+								<StyledCell>{isAvailable ? 'Sim' : 'Não'}</StyledCell>
+							</DataTable.Row>
+						)
+					)}
 				</View>
 			</ScrollView>
 
