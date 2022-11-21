@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { useTheme } from 'styled-components'
 
@@ -34,26 +34,31 @@ export const SignupScreen = () => {
 		formState: { isValid }
 	} = useForm<SignupForm>({ mode: 'onChange' })
 	const [loading, setLoading] = useState(false)
-	const [visible, setVisible] = useState(false)
+	const [error, setError] = useState<{ message: string; visible: boolean }>({
+		message: 'Servidor não conectado!',
+		visible: false
+	})
 	const theme = useTheme()
 	const navigation = useNavigation()
 	const { addClient, changeNewStatus } = useContext(AuthContext)
 
-	const onSubmit = (data: SignupForm) => {
+	const onSubmit = async (data: SignupForm) => {
 		setLoading(true)
 
-		api
-			.post('clients', data)
-			.then(async response => {
-				await addClient(response.data.client)
-				await changeNewStatus(true)
+		try {
+			const response = await api.post('clients', data)
 
-				navigation.navigate(INITIAL)
+			await addClient(response.data.client)
+			await changeNewStatus(true)
+
+			navigation.navigate(INITIAL)
+		} catch (e: any) {
+			setError({
+				visible: true,
+				message: e.response?.data ?? 'Um erro desconhecido ocorreu'
 			})
-			.catch(async () => {
-				setVisible(true)
-				setLoading(false)
-			})
+			setLoading(false)
+		}
 	}
 
 	return (
@@ -70,11 +75,11 @@ export const SignupScreen = () => {
 					rules={{
 						required: true
 					}}
-					render={({ fieldState: { error }, field: { onChange, value } }) => (
+					render={({ fieldState, field: { onChange, value } }) => (
 						<StyledInput
 							label="Nome"
 							defaultValue=""
-							error={!!error}
+							error={!!fieldState.error}
 							placeholder="Ex: Guilherme Vieira"
 							onChangeText={text => onChange(text)}
 							value={value}
@@ -89,11 +94,11 @@ export const SignupScreen = () => {
 						minLength: 10,
 						maxLength: 11
 					}}
-					render={({ fieldState: { error }, field: { onChange, value } }) => (
+					render={({ fieldState, field: { onChange, value } }) => (
 						<StyledInput
 							label="Telefone"
 							defaultValue=""
-							error={!!error}
+							error={!!fieldState.error}
 							placeholder="Ex: 11988900772"
 							onChangeText={text => onChange(text)}
 							value={value}
@@ -107,11 +112,11 @@ export const SignupScreen = () => {
 					rules={{
 						required: true
 					}}
-					render={({ fieldState: { error }, field: { onChange, value } }) => (
+					render={({ fieldState, field: { onChange, value } }) => (
 						<StyledInput
 							label="Cidade"
 							defaultValue=""
-							error={!!error}
+							error={!!fieldState.error}
 							placeholder="Ex: Guarulhos"
 							onChangeText={text => onChange(text)}
 							value={value}
@@ -126,11 +131,11 @@ export const SignupScreen = () => {
 						minLength: 2,
 						maxLength: 2
 					}}
-					render={({ fieldState: { error }, field: { onChange, value } }) => (
+					render={({ fieldState, field: { onChange, value } }) => (
 						<StyledInput
 							label="Estado"
 							defaultValue=""
-							error={!!error}
+							error={!!fieldState.error}
 							placeholder="Ex: SP"
 							onChangeText={text => onChange(text)}
 							value={value}
@@ -157,13 +162,13 @@ export const SignupScreen = () => {
 			)}
 
 			<Snackbar
-				visible={visible}
-				onDismiss={() => setVisible(false)}
+				visible={error.visible}
+				onDismiss={() => setError({ ...error, visible: false })}
 				duration={4000}
 				action={{
 					label: 'Fechar',
 					onPress: () => {
-						setVisible(false)
+						setError({ ...error, visible: false })
 					}
 				}}
 			>
