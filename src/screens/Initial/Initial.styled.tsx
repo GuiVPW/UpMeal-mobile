@@ -1,17 +1,21 @@
-import { Colors, Headline, Subheading, TouchableRipple } from 'react-native-paper'
+import { KeyboardAvoidingView, ScrollView } from 'react-native'
+import { Button, Colors, Headline, Subheading } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+export const SafeView = styled(ScrollView)`
 	flex: 1;
-	align-items: center;
-	justify-content: space-between;
 	background-color: ${({ theme }) => theme.colors.primary};
 	padding-vertical: 20%;
 `
 
+export const Container = styled(KeyboardAvoidingView)`
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+`
+
 export const ImageContainer = styled.View`
-	width: 260px;
-	height: 350px;
 	margin-bottom: 32px;
 	display: flex;
 	justify-content: center;
@@ -19,8 +23,7 @@ export const ImageContainer = styled.View`
 `
 
 export const MainImage = styled.Image`
-	width: 100%;
-	height: 100%;
+	width: 250px;
 `
 
 export const TextContainer = styled.View`
@@ -37,12 +40,11 @@ export const Title = styled(Headline)`
 	text-align: center;
 `
 
-export const StyledButton = styled(TouchableRipple)`
+export const StyledButton = styled(Button)`
 	background-color: ${({ theme, disabled }) =>
 		disabled ? Colors.grey500 : theme.colors.secondary};
 	elevation: 0;
-	padding-vertical: 8px;
-	padding-horizontal: 40px;
+	width: 40%;
 	border-radius: 24px;
 `
 
@@ -61,6 +63,6 @@ export const Subtitle = styled(Subheading)`
 `
 
 export const InputContainer = styled.View`
-	padding: 24px;
+	padding: 16px;
 	width: 100%;
 `

@@ -1,19 +1,16 @@
-import { Dimensions } from 'react-native'
+import { KeyboardAvoidingView, ScrollView } from 'react-native'
 import { Button, Headline, Subheading, TextInput } from 'react-native-paper'
 import styled from 'styled-components/native'
 
-export const Container = styled.View`
+export const SafeScrollView = styled(ScrollView)`
 	flex: 1;
-	align-items: center;
 	background-color: ${({ theme }) => theme.colors.primary};
-	padding-vertical: 20px;
-	height: ${Dimensions.get('screen').height}px;
 `
 
-export const MainImage = styled.Image`
-	width: 30%;
-	height: 30%;
-	margin-bottom: 32px;
+export const Container = styled(KeyboardAvoidingView)`
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 `
 
 export const TextContainer = styled.View`
@@ -31,9 +28,7 @@ export const Title = styled(Headline)`
 `
 
 export const StyledButton = styled(Button)`
-	elevation: 0;
-	padding-vertical: 4px;
-	padding-horizontal: 40px;
+	width: 160px;
 	border-radius: 24px;
 `
 

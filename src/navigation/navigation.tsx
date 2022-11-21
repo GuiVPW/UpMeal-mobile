@@ -19,7 +19,7 @@ export const Navigation = () => {
 	const { isAuth, loading } = useContext(AuthContext)
 
 	if (loading) {
-		return <AppLoading />
+		return <AppLoading autoHideSplash />
 	}
 
 	return (
@@ -40,7 +40,14 @@ export const Navigation = () => {
 				<AppStack.Screen
 					name={SIGNUP}
 					component={SignupScreen}
-					options={{ headerShown: true }}
+					options={{
+						headerShown: true,
+						headerStyle: {
+							backgroundColor: theme.colors.primary
+						},
+						headerTintColor: '#fff',
+						headerShadowVisible: false
+					}}
 				/>
 				<AppStack.Screen name={HOME} component={HomeScreen} />
 				<AppStack.Screen name={MAP} component={MapScreen} />

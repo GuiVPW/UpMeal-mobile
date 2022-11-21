@@ -27,45 +27,47 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 	const [token, setToken] = useState<string>()
 	const [isNew, setIsNew] = useState(true)
 
-	useEffect(() => {
-		async function checkAuth() {
-			setLoading(true)
-			try {
-				const tokenReceived = await getItemAsync('token')
+	async function checkAuth() {
+		try {
+			const tokenReceived = await getItemAsync('token')
 
-				if (!tokenReceived) {
-					setIsAuth(false)
-					setLoading(false)
-				}
-
-				const shopsData = await api.post('/clients/authenticate', {
-					accessToken: tokenReceived
-				})
-
-				if (shopsData.data.client.accessId) {
-					setToken(tokenReceived as string)
-					setIsAuth(true)
-					setIsNew(false)
-				} else {
-					await deleteItemAsync('token')
-					setToken(undefined)
-					setIsAuth(false)
-				}
-
+			if (!tokenReceived) {
+				setIsAuth(false)
 				setLoading(false)
-			} catch {
+			}
+
+			const shopsData = await api.post('/clients/authenticate', {
+				accessToken: tokenReceived
+			})
+
+			if (shopsData.data.client.accessId) {
+				setToken(tokenReceived as string)
+				setIsAuth(true)
+				setIsNew(false)
+			} else {
+				await deleteItemAsync('token')
 				setToken(undefined)
 				setIsAuth(false)
-				await deleteItemAsync('token')
 			}
-		}
 
+			setLoading(false)
+		} catch {
+			setToken(undefined)
+			setIsAuth(false)
+			await deleteItemAsync('token')
+		}
+	}
+
+	useEffect(() => {
+		setLoading(true)
 		checkAuth()
-	}, [])
+	}, [client])
 
 	async function addClient(givenClient: Client) {
 		await setItemAsync('token', givenClient.accessId)
+		setToken(givenClient.accessId)
 		setClient(client)
+		await checkAuth()
 	}
 
 	async function changeNewStatus(status: boolean) {

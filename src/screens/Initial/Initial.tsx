@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
 
 import { useNavigation } from '@react-navigation/core'
-import { Button } from 'react-native'
-import { Snackbar, TextInput, ActivityIndicator } from 'react-native-paper'
+import { Image } from 'react-native'
+import { Button, Snackbar, TextInput, ActivityIndicator } from 'react-native-paper'
 
 import { AuthContext } from '../../contexts/auth.context'
 import appImage from '../../images/icon.png'
@@ -13,7 +13,7 @@ import {
 	Container,
 	ImageContainer,
 	InputContainer,
-	MainImage,
+	SafeView,
 	StyledButton,
 	Subtitle,
 	TextContainer,
@@ -45,39 +45,39 @@ export const InitialScreen = () => {
 	}
 
 	return (
-		<Container>
-			<ImageContainer>
-				<MainImage source={appImage} />
-			</ImageContainer>
-			<TextContainer>
-				<Title>UpMeal</Title>
-				<Subtitle>Diminuindo o desperdício</Subtitle>
-			</TextContainer>
-			<InputContainer>
-				<TextInput
-					value={id}
-					label="Insira seu ID:"
-					onChangeText={text => setId(text)}
-					placeholder="Ex: b74b0818..."
-				/>
-			</InputContainer>
+		<SafeView>
+			<Container behavior="padding">
+				<ImageContainer>
+					<Image source={appImage} />
+				</ImageContainer>
+				<TextContainer>
+					<Title>UpMeal</Title>
+					<Subtitle>Diminuindo o desperdício</Subtitle>
+				</TextContainer>
+				<InputContainer>
+					<TextInput
+						value={id}
+						label="Insira seu ID:"
+						onChangeText={text => setId(text)}
+						placeholder="Ex: b7c4d2z"
+					/>
+				</InputContainer>
 
-			{loading ? (
-				<ActivityIndicator animating color="white" />
-			) : (
-				<StyledButton
-					rippleColor="rgba(0, 0, 0, .32)"
-					onPress={() => handleNavigate()}
-					disabled={loading}
-				>
-					<ButtonText>Começar</ButtonText>
-				</StyledButton>
-			)}
-			<Button
-				title="Não tenho cadastro."
-				color="white"
-				onPress={() => navigation.navigate(SIGNUP)}
-			/>
+				{loading ? (
+					<ActivityIndicator animating color="white" />
+				) : (
+					<StyledButton
+						onPress={() => handleNavigate()}
+						mode="contained"
+						disabled={loading}
+					>
+						<ButtonText>Começar</ButtonText>
+					</StyledButton>
+				)}
+				<Button color="white" onPress={() => navigation.navigate(SIGNUP)}>
+					Não tenho cadastro.
+				</Button>
+			</Container>
 			<Snackbar
 				visible={visible}
 				onDismiss={() => setVisible(false)}
@@ -91,7 +91,7 @@ export const InitialScreen = () => {
 			>
 				ID inválido ou servidor não está conectado.
 			</Snackbar>
-		</Container>
+		</SafeView>
 	)
 }
 
