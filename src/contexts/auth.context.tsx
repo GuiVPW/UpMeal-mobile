@@ -1,4 +1,4 @@
-import React, { FC, createContext, useState, useEffect } from 'react'
+import React, { createContext, useState, useEffect, PropsWithChildren } from 'react'
 
 import { deleteItemAsync, getItemAsync, setItemAsync } from 'expo-secure-store'
 
@@ -20,7 +20,7 @@ export interface AuthContextProps {
 // @ts-ignore
 export const AuthContext = createContext<AuthContextProps>()
 
-export const AuthProvider: FC = ({ children }) => {
+export const AuthProvider = ({ children }: PropsWithChildren) => {
 	const [isAuth, setIsAuth] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [client, setClient] = useState<Client>()
