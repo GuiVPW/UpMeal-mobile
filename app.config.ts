@@ -28,7 +28,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	assetBundlePatterns: ['**/*'],
 	ios: {
 		supportsTablet: true,
-		bundleIdentifier: 'com.vortechs.upmeal',
+		bundleIdentifier: 'com.metafy.upmeal',
 		buildNumber: versionBuild,
 		config: {
 			googleMapsApiKey: process.env.GOOGLE_API_KEY
@@ -39,7 +39,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 			foregroundImage: './assets/adaptive-icon.png',
 			backgroundColor: '#FFFFFF'
 		},
-		package: 'com.vortechs.upmeal',
+		package: 'com.metafy.upmeal',
 		versionCode: convertToAndroidVersion(versionBuild),
 		config: {
 			googleMaps: {
