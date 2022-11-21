@@ -49,5 +49,8 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	},
 	web: {
 		favicon: './assets/favicon.png'
+	},
+	extra: {
+		apiUrl: process.env.API_URL
 	}
 })

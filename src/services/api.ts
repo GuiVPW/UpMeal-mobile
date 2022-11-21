@@ -1,10 +1,8 @@
 import { Axios } from 'axios'
 import { getItemAsync } from 'expo-secure-store'
 
-const { API_URL } = process.env
-
 export const api = new Axios({
-	baseURL: API_URL,
+	baseURL: process.env.API_URL ?? 'http://10.0.2.2:8080',
 	timeout: 5000,
 	headers: {
 		'Content-type': 'application/json'
